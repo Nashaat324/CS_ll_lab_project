@@ -13,7 +13,135 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label_firstline">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>40</y>
+      <width>131</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Your opinion matters!</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_secondline">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>100</y>
+      <width>271</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>How would you rate your overall experience?</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_thirdline">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>170</y>
+      <width>281</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Kindly take a moment to tell us what you think.</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_verypoor">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>130</y>
+      <width>99</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Very poor</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_poor">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>130</y>
+      <width>99</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Poor</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_Fair">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>130</y>
+      <width>99</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Fair</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_Good">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>130</y>
+      <width>99</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Good</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_VeryGood">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>130</y>
+      <width>99</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Very Good</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Button_sharemyfeedback">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>360</y>
+      <width>141</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Share my feedback</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_writtenfeedback">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>200</y>
+      <width>261</width>
+      <height>151</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
