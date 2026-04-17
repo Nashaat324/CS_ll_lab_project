@@ -3,6 +3,8 @@
 #include <QMessageBox>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include "Client.h"
+#include "MockNetworkClient.h"
 
 int IssueTicket::generalQueue = 0;
 int IssueTicket::ahmedQueue = 0;
@@ -108,8 +110,6 @@ void IssueTicket::on_pushButton_submit_clicked()
     QByteArray data = doc.toJson();
 
 
-
-
     QString message =
         "Ticket submitted successfully!\n\n"
         "Ticket ID: " + ticketID + "\n"
@@ -124,6 +124,14 @@ void IssueTicket::on_pushButton_submit_clicked()
     ui->comboBox_sub_category->setEnabled(false);
     ui->comboBox_tech->setCurrentIndex(0);
     ui->lineEdit_issue->clear();
+
+
+    Client* chat = new Client();
+    chat->setUsername(currentUsername);
+    chat->setTechnician(technician);
+
+    chat->show();
+    this->hide();
 
 }
 void IssueTicket::on_comboBox_category_currentTextChanged(const QString &category)
