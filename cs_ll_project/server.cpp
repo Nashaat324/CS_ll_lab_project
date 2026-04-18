@@ -1,4 +1,6 @@
 #define BOOST_ASIO_HAS_CO_AWAIT
+#define BOOST_JSON_STACK_BUFFER_SIZE 1024
+#include <boost/json/src.hpp>
 
 #include <iostream>
 #include <string_view>
@@ -8,6 +10,7 @@
 #include <boost/asio/use_awaitable.hpp>
 #include <boost/asio/detached.hpp>
 #include <boost/asio/as_tuple.hpp>
+#include <boost/json.hpp>
 
 using boost::asio::ip::tcp;
 using boost::asio::awaitable;
@@ -22,14 +25,27 @@ awaitable<void> handle_client(tcp::socket socket)
     {
         char data[1024];
 
+
         auto [ec, bytes_read] = co_await socket.async_read_some(
             boost::asio::buffer(data),
             as_tuple(use_awaitable)
             );
 
+
         if (!ec)
+
         {
+            auto json_value = boost::json::parse(std::string_view(data, bytes_read));
+            auto json_object = json_value.as_object();
+            auto json_message = json_object.at("message");
+            auto json_sender = json_object.at("from");
+            std::string message = boost::json::value_to<std::string>(json_message);
+            std::string sender = boost::json::value_to<std::string>(json_sender);
+
+
             std::cout << "Server received: "
+                      << sender << ": " << message << "\n";
+            std::cout << "Server received(raw message): "
                       << std::string_view(data, bytes_read) << "\n";
         }
         else
@@ -77,3 +93,4 @@ int main()
 
     return 0;
 }
+

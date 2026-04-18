@@ -23,6 +23,10 @@ private slots:
     void on_send_clicked();
     void onReadyRead();
 
+
+
+    void on_End_Chat_clicked();
+
 private:
     Ui::Client *ui;
     QTcpSocket* socket;

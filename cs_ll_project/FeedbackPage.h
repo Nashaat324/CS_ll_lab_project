@@ -15,8 +15,14 @@ public:
     explicit FeedbackPage(QWidget *parent = nullptr);
     ~FeedbackPage();
 
+private slots:
+    void on_Button_sharemyfeedback_clicked();
+
+
 private:
     Ui::FeedbackPage *ui;
 };
+
+
 
 #endif // FEEDBACKPAGE_H

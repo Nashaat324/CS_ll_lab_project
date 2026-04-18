@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>718</width>
-    <height>468</height>
+    <width>1079</width>
+    <height>681</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>20</y>
+     <x>270</x>
+     <y>110</y>
      <width>561</width>
      <height>16</height>
     </rect>
@@ -35,8 +35,8 @@
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>40</y>
+     <x>270</x>
+     <y>130</y>
      <width>571</width>
      <height>321</height>
     </rect>
@@ -53,11 +53,11 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>380</y>
+     <x>280</x>
+     <y>470</y>
      <width>561</width>
      <height>41</height>
     </rect>
@@ -87,6 +87,19 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QPushButton" name="End_Chat">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>530</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>End Chat</string>
+   </property>
   </widget>
  </widget>
  <resources/>

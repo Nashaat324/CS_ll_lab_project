@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< HEAD
-<!-- Written by QtCreator 18.0.2, 2026-04-18T09:26:13. -->
-=======
-<!-- Written by QtCreator 18.0.2, 2026-04-17T22:53:47. -->
->>>>>>> remotes/origin/feature/feedbackpage
+<!-- Written by QtCreator 18.0.2, 2026-04-18T21:10:07. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>

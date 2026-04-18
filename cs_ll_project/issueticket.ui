@@ -42,9 +42,9 @@
   <widget class="QComboBox" name="comboBox_category">
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>330</x>
      <y>140</y>
-     <width>121</width>
+     <width>151</width>
      <height>32</height>
     </rect>
    </property>
@@ -88,9 +88,9 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>370</x>
+     <x>330</x>
      <y>210</y>
-     <width>131</width>
+     <width>151</width>
      <height>32</height>
     </rect>
    </property>
@@ -134,18 +134,18 @@
   <widget class="QLineEdit" name="lineEdit_issue">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>260</y>
-     <width>113</width>
-     <height>21</height>
+     <x>40</x>
+     <y>290</y>
+     <width>311</width>
+     <height>61</height>
     </rect>
    </property>
   </widget>
   <widget class="QLabel" name="label_2_tech">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>310</y>
+     <x>30</x>
+     <y>400</y>
      <width>631</width>
      <height>31</height>
     </rect>
@@ -162,9 +162,9 @@
   <widget class="QComboBox" name="comboBox_tech">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>310</y>
-     <width>201</width>
+     <x>550</x>
+     <y>400</y>
+     <width>261</width>
      <height>32</height>
     </rect>
    </property>
@@ -207,8 +207,8 @@
   <widget class="QPushButton" name="pushButton_submit">
    <property name="geometry">
     <rect>
-     <x>720</x>
-     <y>460</y>
+     <x>450</x>
+     <y>490</y>
      <width>100</width>
      <height>32</height>
     </rect>
@@ -220,14 +220,27 @@
   <widget class="QPushButton" name="pushButton_reset">
    <property name="geometry">
     <rect>
-     <x>600</x>
-     <y>460</y>
+     <x>330</x>
+     <y>490</y>
      <width>100</width>
      <height>32</height>
     </rect>
    </property>
    <property name="text">
     <string>Reset</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>History of previous chats</string>
    </property>
   </widget>
  </widget>

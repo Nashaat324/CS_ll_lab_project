@@ -1,10 +1,12 @@
 #include "client.h"
+#include "FeedbackPage.h"
 #include "ui_client.h"
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QMessageBox>
 #include <QDateTime>
 #include <QDebug>
+#include <boost/json.hpp>
 
 Client::Client(QWidget *parent)
     : QWidget(parent)
@@ -64,3 +66,14 @@ void Client::onReadyRead()
     qDebug() << "FROM SERVER:" << data;
     ui->screen->addItem("Server: " + QString(data));
 }
+
+
+
+
+void Client::on_End_Chat_clicked()
+{
+    hide();
+    FeedbackPage* FP = new FeedbackPage(this);
+    FP->show();
+}
+

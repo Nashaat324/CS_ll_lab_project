@@ -2,37 +2,40 @@ QT += core gui widgets network
 
 CONFIG += c++20
 
+
 SOURCES += \
-<<<<<<< HEAD
+    history.cpp \
+    loginpage.cpp \
+    main.cpp \
     client.cpp \
     issueticket.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    server.cpp
+    FeedbackPage.cpp
 
 HEADERS += \
     client.h \
+    history.h \
     issueticket.h \
-    mainwindow.h
+    FeedbackPage.h \
+    loginpage.h
 
 FORMS += \
     client.ui \
+    history.ui \
     issueticket.ui \
-    mainwindow.ui
-=======
-    FeedbackPage.cpp \
-    main.cpp
+    FeedbackPage.ui \
+    loginpage.ui
 
-HEADERS += \
-    FeedbackPage.h
 
-FORMS += \
-    FeedbackPage.ui
->>>>>>> remotes/origin/feature/feedbackpage
+win32 {
+    LIBS += -lws2_32
+}
 
-LIBS += -lws2_32 -lmswsock
 
-INCLUDEPATH += C:/Users/Nour/vcpkg/installed/x64-windows/include
+macx {
+    INCLUDEPATH += /opt/homebrew/include
+    LIBS += -L/opt/homebrew/lib
+}
+
 
 QMAKE_CFLAGS += -Wno-implicit-function-declaration
 QMAKE_CXXFLAGS += -Wno-implicit-function-declaration
