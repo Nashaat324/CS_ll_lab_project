@@ -1,11 +1,12 @@
-#include "mainwindow.h"
-
 #include <QApplication>
+#include "issueticket.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
+
+    IssueTicket w;
     w.show();
+
     return a.exec();
 }

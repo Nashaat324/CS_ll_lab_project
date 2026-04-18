@@ -13,8 +13,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+<<<<<<< HEAD
 void MainWindow::on_loginButton_clicked()
 {
 
 }
+=======
+>>>>>>> remotes/origin/feature/employee-ui
 

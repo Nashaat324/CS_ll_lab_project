@@ -17,8 +17,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+<<<<<<< HEAD
 private slots:
     void on_loginButton_clicked();
+=======
+
+>>>>>>> remotes/origin/feature/employee-ui
 
 private:
     Ui::MainWindow *ui;
