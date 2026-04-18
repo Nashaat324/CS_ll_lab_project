@@ -38,6 +38,7 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
 {
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
+<<<<<<< HEAD
         "MainWindow",
         "on_loginButton_clicked",
         ""
@@ -46,6 +47,12 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
     QtMocHelpers::UintData qt_methods {
         // Slot 'on_loginButton_clicked'
         QtMocHelpers::SlotData<void()>(1, 2, QMC::AccessPrivate, QMetaType::Void),
+=======
+        "MainWindow"
+    };
+
+    QtMocHelpers::UintData qt_methods {
+>>>>>>> remotes/origin/feature/feedbackpage
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -67,12 +74,18 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     auto *_t = static_cast<MainWindow *>(_o);
+<<<<<<< HEAD
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->on_loginButton_clicked(); break;
         default: ;
         }
     }
+=======
+    (void)_t;
+    (void)_c;
+    (void)_id;
+>>>>>>> remotes/origin/feature/feedbackpage
     (void)_a;
 }
 
@@ -92,6 +105,7 @@ void *MainWindow::qt_metacast(const char *_clname)
 int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QMainWindow::qt_metacall(_c, _id, _a);
+<<<<<<< HEAD
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
@@ -104,6 +118,8 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
         _id -= 1;
     }
+=======
+>>>>>>> remotes/origin/feature/feedbackpage
     return _id;
 }
 QT_WARNING_POP

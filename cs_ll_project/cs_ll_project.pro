@@ -3,6 +3,7 @@ QT += core gui widgets network
 CONFIG += c++20
 
 SOURCES += \
+<<<<<<< HEAD
     client.cpp \
     issueticket.cpp \
     main.cpp \
@@ -18,6 +19,16 @@ FORMS += \
     client.ui \
     issueticket.ui \
     mainwindow.ui
+=======
+    FeedbackPage.cpp \
+    main.cpp
+
+HEADERS += \
+    FeedbackPage.h
+
+FORMS += \
+    FeedbackPage.ui
+>>>>>>> remotes/origin/feature/feedbackpage
 
 LIBS += -lws2_32 -lmswsock
 
