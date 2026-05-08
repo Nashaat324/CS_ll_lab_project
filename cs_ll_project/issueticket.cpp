@@ -3,8 +3,8 @@
 #include <QMessageBox>
 #include <QJsonObject>
 #include <QJsonDocument>
-#include "Client.h"
-
+#include "client.h"
+#include "TcpNetworkClient.h"
 
 int IssueTicket::generalQueue = 0;
 int IssueTicket::ahmedQueue = 0;
@@ -126,7 +126,11 @@ void IssueTicket::on_pushButton_submit_clicked()
     ui->lineEdit_issue->clear();
 
 
-    Client* chat = new Client();
+    TcpNetworkClient* realNetwork =
+        new TcpNetworkClient();
+
+    Client* chat =
+        new Client(realNetwork);
     chat->setUsername(currentUsername);
     chat->setTechnician(technician);
 

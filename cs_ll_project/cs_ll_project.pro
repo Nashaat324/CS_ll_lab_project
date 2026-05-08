@@ -6,12 +6,17 @@ CONFIG += c++20
 SOURCES += \
     history.cpp \
     loginpage.cpp \
-    main.cpp \
+    #main.cpp \
     client.cpp \
     issueticket.cpp \
-    FeedbackPage.cpp
+    FeedbackPage.cpp \
+    test_client.cpp \
+    test_main.cpp
 
 HEADERS += \
+    INetworkClient.h \
+    MockNetworkClient.h \
+    TcpNetworkClient.h \
     client.h \
     history.h \
     issueticket.h \
@@ -33,7 +38,10 @@ win32 {
 
 macx {
     INCLUDEPATH += /opt/homebrew/include
-    LIBS += -L/opt/homebrew/lib
+    LIBS += -L/opt/homebrew/lib \
+            -lgtest \
+            -lgmock \
+            -lpthread
 }
 
 
