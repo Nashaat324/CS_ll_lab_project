@@ -33,6 +33,7 @@ public:
     QComboBox *comboBox_tech;
     QPushButton *pushButton_submit;
     QPushButton *pushButton_reset;
+    QPushButton *pushButton;
 
     void setupUi(QWidget *IssueTicket)
     {
@@ -54,7 +55,7 @@ public:
         comboBox_category->addItem(QString());
         comboBox_category->addItem(QString());
         comboBox_category->setObjectName("comboBox_category");
-        comboBox_category->setGeometry(QRect(370, 140, 121, 32));
+        comboBox_category->setGeometry(QRect(330, 140, 151, 32));
         label_category = new QLabel(IssueTicket);
         label_category->setObjectName("label_category");
         label_category->setGeometry(QRect(40, 140, 341, 31));
@@ -64,7 +65,7 @@ public:
         comboBox_sub_category = new QComboBox(IssueTicket);
         comboBox_sub_category->setObjectName("comboBox_sub_category");
         comboBox_sub_category->setEnabled(true);
-        comboBox_sub_category->setGeometry(QRect(370, 210, 131, 32));
+        comboBox_sub_category->setGeometry(QRect(330, 210, 151, 32));
         label_sub_category = new QLabel(IssueTicket);
         label_sub_category->setObjectName("label_sub_category");
         label_sub_category->setGeometry(QRect(40, 210, 331, 21));
@@ -75,10 +76,10 @@ public:
         label_issue->setFont(font1);
         lineEdit_issue = new QLineEdit(IssueTicket);
         lineEdit_issue->setObjectName("lineEdit_issue");
-        lineEdit_issue->setGeometry(QRect(320, 260, 113, 21));
+        lineEdit_issue->setGeometry(QRect(40, 290, 311, 61));
         label_2_tech = new QLabel(IssueTicket);
         label_2_tech->setObjectName("label_2_tech");
-        label_2_tech->setGeometry(QRect(40, 310, 631, 31));
+        label_2_tech->setGeometry(QRect(30, 400, 631, 31));
         label_2_tech->setFont(font1);
         comboBox_tech = new QComboBox(IssueTicket);
         comboBox_tech->addItem(QString());
@@ -89,13 +90,16 @@ public:
         comboBox_tech->addItem(QString());
         comboBox_tech->addItem(QString());
         comboBox_tech->setObjectName("comboBox_tech");
-        comboBox_tech->setGeometry(QRect(660, 310, 201, 32));
+        comboBox_tech->setGeometry(QRect(550, 400, 261, 32));
         pushButton_submit = new QPushButton(IssueTicket);
         pushButton_submit->setObjectName("pushButton_submit");
-        pushButton_submit->setGeometry(QRect(720, 460, 100, 32));
+        pushButton_submit->setGeometry(QRect(450, 490, 100, 32));
         pushButton_reset = new QPushButton(IssueTicket);
         pushButton_reset->setObjectName("pushButton_reset");
-        pushButton_reset->setGeometry(QRect(600, 460, 100, 32));
+        pushButton_reset->setGeometry(QRect(330, 490, 100, 32));
+        pushButton = new QPushButton(IssueTicket);
+        pushButton->setObjectName("pushButton");
+        pushButton->setGeometry(QRect(10, 50, 161, 31));
 
         retranslateUi(IssueTicket);
 
@@ -124,6 +128,7 @@ public:
 
         pushButton_submit->setText(QCoreApplication::translate("IssueTicket", "Submit", nullptr));
         pushButton_reset->setText(QCoreApplication::translate("IssueTicket", "Reset", nullptr));
+        pushButton->setText(QCoreApplication::translate("IssueTicket", "History of previous chats", nullptr));
     } // retranslateUi
 
 };

@@ -6,7 +6,7 @@
 #include <QMessageBox>
 #include <QDateTime>
 #include <QDebug>
-#include <boost/json.hpp>
+//#include <boost/json.hpp>
 
 Client::Client(QWidget *parent)
     : QWidget(parent)
