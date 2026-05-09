@@ -1,6 +1,8 @@
 
 #include "loginpage.h"
 #include "FeedbackPage.h"
+#include "TcpNetworkClient.h"
+#include "client.h"
 
 
 #include <QApplication>
@@ -15,7 +17,13 @@ int main(int argc, char *argv[])
 
    FeedbackPage w2;
 
+ TcpNetworkClient* realNet = new TcpNetworkClient();
+
+ Client* chatWindow = new Client(realNet);
+
+
     w.show();
 
     return a.exec();
+
 }

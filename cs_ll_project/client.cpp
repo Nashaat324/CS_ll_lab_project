@@ -17,6 +17,11 @@ Client::Client(INetworkClient* net,
 
     network = net;
 
+    if (network->getSocket()) {
+        connect(network->getSocket(), &QTcpSocket::readyRead,
+                this, &Client::onReadyRead);
+    }
+
     network->connectToServer(
         "127.0.0.1",
         54321
@@ -67,8 +72,18 @@ void Client::on_send_clicked()
 void Client::onReadyRead()
 {
     QByteArray data = network->receiveData();
-    qDebug() << "FROM SERVER:" << data;
-    ui->screen->addItem("Server: " + QString(data));
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    QJsonObject obj = doc.object();
+
+    if (obj.contains("status")) {
+
+        QString status = obj["status"].toString();
+        ui->screen->addItem("System: Message " + status + "!");
+    } else {
+
+        ui->screen->addItem("Server: " + QString(data));
+    }
+
 }
 
 

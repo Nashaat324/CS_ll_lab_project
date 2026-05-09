@@ -7,15 +7,16 @@ TEMPLATE = app
 SOURCES += \
     ServerLogic/ServerLogic.cpp \
     ServerLogicTest.cpp \
-    main_test.cpp \
+    # main_test.cpp \
     history.cpp \
     loginpage.cpp \
     client.cpp \
     issueticket.cpp \
     FeedbackPage.cpp \
+    main.cpp \
     test_client.cpp \
-    test_main.cpp \
-    $$PWD/third_party/googletest-main/googletest/src/gtest-all.cc
+    $$PWD/third_party/googletest-main/googletest/src/gtest-all.cc \
+    $$PWD/third_party/googletest-main/googlemock/src/gmock-all.cc
 
 HEADERS += \
     ServerLogic/ServerLogic.h \
@@ -36,9 +37,12 @@ FORMS += \
     FeedbackPage.ui \
     loginpage.ui
 
+
 INCLUDEPATH += \
     $$PWD/third_party/googletest-main/googletest/include \
-    $$PWD/third_party/googletest-main/googletest
+    $$PWD/third_party/googletest-main/googletest \
+    $$PWD/third_party/googletest-main/googlemock/include \
+    $$PWD/third_party/googletest-main/googlemock
 
 win32 {
     LIBS += -lws2_32
@@ -47,8 +51,8 @@ win32 {
 macx {
     INCLUDEPATH += /opt/homebrew/include
     LIBS += -L/opt/homebrew/lib \
-            -lgtest \
-            -lgmock \
+            # -lgtest \
+            # -lgmock \
             -lpthread
 }
 

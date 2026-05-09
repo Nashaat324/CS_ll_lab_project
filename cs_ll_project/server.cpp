@@ -49,8 +49,21 @@ awaitable<void> handle_client(tcp::socket socket)
                 break;
             }
 
+
             auto json_value = boost::json::parse(std::string_view(data, bytes_read));
             auto json_object = json_value.as_object();
+            auto json_message = json_object.at("message");
+            auto json_sender = json_object.at("from");
+            std::string message = boost::json::value_to<std::string>(json_message);
+            std::string sender = boost::json::value_to<std::string>(json_sender);
+
+
+            std::cout << "Server received: "
+                      << sender << ": " << message << "\n";
+            std::cout << "Server received(raw message): "
+                      << std::string_view(data, bytes_read) << "\n";
+
+
             std::string type = json_object.at("type").as_string().c_str();
 
             if(type == "login")
@@ -61,7 +74,7 @@ awaitable<void> handle_client(tcp::socket socket)
                 std::cout << username << " has logged in. \n";
 
             }
-            else if (type == "message")
+            else if (type == "chat_message")
             {
                  dest = json_object.at("to").as_string().c_str();
                 if(connected_clients.count(dest))
@@ -71,7 +84,21 @@ awaitable<void> handle_client(tcp::socket socket)
                 boost::asio::buffer(data, bytes_read), use_awaitable);
 
                 std::cout << "Routed message from " << my_username << "to " << dest << "\n";
+
+
                 }
+                boost::json::object response;
+                response["type"] = "server_confirmation";
+                response["status"] = "delivered";
+                response["original_msg"] = json_object.at("message"); // Echo the text back
+
+                std::string response_str = boost::json::serialize(response) + "\n";
+
+                // Send it back to the person who just spoke to us
+                co_await boost::asio::async_write(*socket_ptr,
+                                                  boost::asio::buffer(response_str), use_awaitable);
+
+                std::cout << "Echo sent back to client.\n";
                 }
             }
     }

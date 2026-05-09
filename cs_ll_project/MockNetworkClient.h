@@ -28,6 +28,7 @@ public:
         (),
         (override)
         );
+    MOCK_METHOD(QTcpSocket*, getSocket, (), (override));
 };
 
 #endif // MOCKNETWORKCLIENT_H

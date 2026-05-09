@@ -30,6 +30,7 @@ public:
     {
         return socket.readAll();
     }
+    QTcpSocket* getSocket() override { return &socket; }
 };
 
 #endif
