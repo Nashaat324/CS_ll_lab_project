@@ -1,0 +1,14 @@
+debug/ServerLogic.o
+debug/ServerLogicTest.o
+debug/main_test.o
+debug/history.o
+debug/loginpage.o
+debug/client.o
+debug/issueticket.o
+debug/FeedbackPage.o
+debug/gtest-all.o
+debug/moc_client.o
+debug/moc_history.o
+debug/moc_issueticket.o
+debug/moc_FeedbackPage.o
+debug/moc_loginpage.o
