@@ -8,15 +8,19 @@
 #include <QDebug>
 //#include <boost/json.hpp>
 
-Client::Client(QWidget *parent)
+Client::Client(INetworkClient* net,
+               QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Client)
 {
     ui->setupUi(this);
-    socket = new QTcpSocket(this);
-    socket->connectToHost("127.0.0.1", 54321);
-    connect(socket, &QTcpSocket::readyRead,
-            this, &Client::onReadyRead);
+
+    network = net;
+
+    network->connectToServer(
+        "127.0.0.1",
+        54321
+        );
 }
 
 Client::~Client()
@@ -39,7 +43,7 @@ void Client::on_send_clicked()
 {
     QString msg = ui->type->text();
     if (msg.isEmpty()) {
-        QMessageBox::critical(this, "Error", "Message is empty");
+        //QMessageBox::critical(this, "Error", "Message is empty");
         return;
     }
 
@@ -54,7 +58,7 @@ void Client::on_send_clicked()
 
     QJsonDocument doc(json);
     QByteArray data = doc.toJson(QJsonDocument::Compact);
-    socket->write(data);
+    network->sendData(data);
     qDebug() << "SENT TO SERVER:" << data;
     ui->screen->addItem("Me: " + msg + "\nTime: " + timestamp);
     ui->type->clear();
@@ -62,7 +66,7 @@ void Client::on_send_clicked()
 
 void Client::onReadyRead()
 {
-    QByteArray data = socket->readAll();
+    QByteArray data = network->receiveData();
     qDebug() << "FROM SERVER:" << data;
     ui->screen->addItem("Server: " + QString(data));
 }
