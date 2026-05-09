@@ -6,6 +6,8 @@
 #include <string_view>
 #include <boost/asio.hpp>
 #include <boost/asio/this_coro.hpp>
+#include <map>
+#include <memory>
 
 #include <boost/asio/use_awaitable.hpp>
 #include <boost/asio/detached.hpp>
@@ -19,40 +21,61 @@ using boost::asio::detached;
 using boost::asio::use_awaitable;
 using boost::asio::as_tuple;
 
+std::map<std::string, std::shared_ptr<tcp::socket>> connected_clients;
+
+
+
 awaitable<void> handle_client(tcp::socket socket)
 {
     try
     {
+        auto socket_ptr = std::make_shared<tcp::socket>(std::move(socket));
+        std::string my_username = "";
         char data[1024];
 
 
-        auto [ec, bytes_read] = co_await socket.async_read_some(
+        std::string dest;
+        while(true)
+        {
+        auto [ec, bytes_read] = co_await socket_ptr->async_read_some(
             boost::asio::buffer(data),
             as_tuple(use_awaitable)
             );
 
+            if(ec)
+            {
+            std::cout <<"client disconnected";
+                connected_clients.erase(my_username);
+                break;
+            }
 
-        if (!ec)
-
-        {
             auto json_value = boost::json::parse(std::string_view(data, bytes_read));
             auto json_object = json_value.as_object();
-            auto json_message = json_object.at("message");
-            auto json_sender = json_object.at("from");
-            std::string message = boost::json::value_to<std::string>(json_message);
-            std::string sender = boost::json::value_to<std::string>(json_sender);
+            std::string type = json_object.at("type").as_string().c_str();
 
+            if(type == "login")
+            {
+                std::string username = json_object.at("user").as_string().c_str();
 
-            std::cout << "Server received: "
-                      << sender << ": " << message << "\n";
-            std::cout << "Server received(raw message): "
-                      << std::string_view(data, bytes_read) << "\n";
-        }
-        else
-        {
-            std::cout << "Read error: " << ec.message() << "\n";
-        }
+                connected_clients[username] = socket_ptr;
+                std::cout << username << " has logged in. \n";
+
+            }
+            else if (type == "message")
+            {
+                 dest = json_object.at("to").as_string().c_str();
+                if(connected_clients.count(dest))
+                 {
+                auto target_socket = connected_clients[dest];
+               co_await boost::asio::async_write(*target_socket,
+                boost::asio::buffer(data, bytes_read), use_awaitable);
+
+                std::cout << "Routed message from " << my_username << "to " << dest << "\n";
+                }
+                }
+            }
     }
+
     catch (std::exception& e)
     {
         std::cout << "Exception: " << e.what() << "\n";
