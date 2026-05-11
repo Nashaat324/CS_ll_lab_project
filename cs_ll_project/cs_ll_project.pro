@@ -11,6 +11,7 @@ SOURCES += \
     # main_test.cpp \
     history.cpp \
     loginpage.cpp \
+<<<<<<< HEAD
     client.cpp \
     issueticket.cpp \
     FeedbackPage.cpp \
@@ -20,6 +21,14 @@ SOURCES += \
     test_client.cpp \
     $$PWD/third_party/googletest-main/googletest/src/gtest-all.cc \
     $$PWD/third_party/googletest-main/googlemock/src/gmock-all.cc
+=======
+    main.cpp \
+    client.cpp \
+    issueticket.cpp \
+    FeedbackPage.cpp \
+    #test_client.cpp \
+    #test_main.cpp
+>>>>>>> Update-Login
 
 HEADERS += \
     ClientNetwork.h \
