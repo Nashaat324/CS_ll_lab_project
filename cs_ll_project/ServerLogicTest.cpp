@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "ServerLogic/ServerLogic.h"//
+#include "ServerLogic/ServerLogic.h"
 
 TEST(ServerLogicTest, ValidLogin)
 {
@@ -8,13 +8,12 @@ TEST(ServerLogicTest, ValidLogin)
     std::string request =
         R"({"type":"login","user":"Nour"})";
 
-    std::string response =
-        server.handleRequest(1, request);
+    std::string response = server.handleRequest(1, request);
 
-    EXPECT_TRUE(server.isLoggedIn(1));
+    EXPECT_TRUE(server.isLoggedIn());
 
     EXPECT_TRUE(
-        response.find("Login successful")
+        response.find("SUCCESS")
         != std::string::npos
         );
 }
@@ -78,7 +77,7 @@ TEST(ServerLogicTest, DisconnectRemovesUser)
 
     server.handleDisconnect(1);
 
-    EXPECT_FALSE(server.isLoggedIn(1));
+    EXPECT_FALSE(server.isLoggedIn());
 }
 
 TEST(ServerLogicTest, TicketSubmissionWorks)

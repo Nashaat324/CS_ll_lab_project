@@ -10,13 +10,17 @@
 
 using namespace testing;
 
+
+
 TEST(ClientTest, EmptyMessageDoesNotSend)
 {
+    ServerLogic* dummyLogic = nullptr;
+
     MockNetworkClient mock;
     EXPECT_CALL(mock, connectToServer(testing::_, testing::_))
         .Times(1);
 
-    Client client(&mock);
+    Client client(&mock, dummyLogic, 1);
 
     EXPECT_CALL(mock, sendData(_))
         .Times(0);
@@ -29,11 +33,13 @@ TEST(ClientTest, EmptyMessageDoesNotSend)
 
 TEST(ClientTest, ValidMessageSendsData)
 {
+    ServerLogic* dummyLogic = nullptr;
+
     MockNetworkClient mock;
     EXPECT_CALL(mock, connectToServer(testing::_, testing::_))
         .Times(1);
 
-    Client client(&mock);
+    Client client(&mock, dummyLogic, 1);
 
     client.setUsername("Yahia");
     client.setTechnician("Ahmed");
@@ -49,11 +55,13 @@ TEST(ClientTest, ValidMessageSendsData)
 
 TEST(ClientTest, FakeServerMessageDisplayed)
 {
+    ServerLogic* dummyLogic = nullptr;
+
     MockNetworkClient mock;
     EXPECT_CALL(mock, connectToServer(testing::_, testing::_))
         .Times(1);
 
-    Client client(&mock);
+    Client client(&mock, dummyLogic, 1);
 
     QByteArray fakeReply =
         "Hello from fake server";
@@ -74,11 +82,13 @@ TEST(ClientTest, FakeServerMessageDisplayed)
 
 TEST(ClientTest, TechnicianLabelUpdated)
 {
+    ServerLogic* dummyLogic = nullptr;
+
     MockNetworkClient mock;
     EXPECT_CALL(mock, connectToServer(testing::_, testing::_))
         .Times(1);
 
-    Client client(&mock);
+    Client client(&mock, dummyLogic, 1);
 
     client.setTechnician("Ahmed");
 
@@ -92,11 +102,13 @@ TEST(ClientTest, TechnicianLabelUpdated)
 
 TEST(ClientTest, InputClearedAfterSending)
 {
+    ServerLogic* dummyLogic = nullptr;
+
     MockNetworkClient mock;
     EXPECT_CALL(mock, connectToServer(testing::_, testing::_))
         .Times(1);
 
-    Client client(&mock);
+    Client client(&mock, dummyLogic, 1);
 
     client.setUsername("Yahia");
     client.setTechnician("Ahmed");

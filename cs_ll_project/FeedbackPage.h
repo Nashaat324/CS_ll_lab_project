@@ -2,8 +2,11 @@
 #define FEEDBACKPAGE_H
 
 #include <QDialog>
+#include "ServerLogic/ServerLogic.h"
+
 
 namespace Ui {
+
 class FeedbackPage;
 }
 
@@ -12,7 +15,7 @@ class FeedbackPage : public QDialog
     Q_OBJECT
 
 public:
-    explicit FeedbackPage(QWidget *parent = nullptr);
+    explicit FeedbackPage(QWidget *parent = nullptr, ServerLogic *l = nullptr, int id = -1);
     ~FeedbackPage();
 
 private slots:
@@ -21,6 +24,8 @@ private slots:
 
 private:
     Ui::FeedbackPage *ui;
+    ServerLogic *logic;
+    int myId;
 };
 
 

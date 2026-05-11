@@ -39,10 +39,10 @@
     <string>You can access your chat history by clicking on this button!</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pushButton_history">
    <property name="geometry">
     <rect>
-     <x>330</x>
+     <x>340</x>
      <y>240</y>
      <width>131</width>
      <height>41</height>
@@ -50,6 +50,16 @@
    </property>
    <property name="text">
     <string>Check my history</string>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="listWidget_history">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>300</y>
+     <width>181</width>
+     <height>111</height>
+    </rect>
    </property>
   </widget>
  </widget>

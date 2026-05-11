@@ -6,6 +6,7 @@
 #include "client.h"
 #include "TcpNetworkClient.h"
 
+
 int IssueTicket::generalQueue = 0;
 int IssueTicket::ahmedQueue = 0;
 int IssueTicket::omarQueue = 0;
@@ -13,9 +14,12 @@ int IssueTicket::youssefQueue = 0;
 int IssueTicket::mahmoudQueue = 0;
 int IssueTicket::karimQueue = 0;
 
-IssueTicket::IssueTicket(QWidget *parent)
+IssueTicket::IssueTicket(INetworkClient* net, ServerLogic* log, int id, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::IssueTicket)
+    , network(net)
+    , logic(log)
+    , userId(id)
 {
     ui->setupUi(this);
 }
@@ -130,7 +134,7 @@ void IssueTicket::on_pushButton_submit_clicked()
         new TcpNetworkClient();
 
     Client* chat =
-        new Client(realNetwork);
+        new Client(this->network, this->logic, this->userId);
     chat->setUsername(currentUsername);
     chat->setTechnician(technician);
 

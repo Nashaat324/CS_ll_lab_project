@@ -2,6 +2,9 @@
 #define ISSUETICKET_H
 #include <QString>
 #include <QWidget>
+#include "ServerLogic/ServerLogic.h"
+#include "INetworkClient.h"
+
 
 namespace Ui {
 class IssueTicket;
@@ -12,7 +15,7 @@ class IssueTicket : public QWidget
     Q_OBJECT
 
 public:
-    explicit IssueTicket(QWidget *parent = nullptr);
+    explicit IssueTicket(INetworkClient* net, ServerLogic* log, int id,QWidget *parent = nullptr);
     ~IssueTicket();
 
 
@@ -34,6 +37,10 @@ private slots:
     static int youssefQueue;
     static int mahmoudQueue;
     static int karimQueue;
+
+    INetworkClient* network;
+    ServerLogic* logic;
+    int userId;
 
 };
 

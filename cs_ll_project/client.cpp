@@ -8,10 +8,12 @@
 #include <QDebug>
 //#include <boost/json.hpp>
 
-Client::Client(INetworkClient* net,
-               QWidget *parent)
+Client::Client(INetworkClient* net, ServerLogic *l, int id, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Client)
+    , network(net)
+    , logic(l)
+    , myId(id)
 {
     ui->setupUi(this);
 
@@ -91,8 +93,24 @@ void Client::onReadyRead()
 
 void Client::on_End_Chat_clicked()
 {
-    hide();
-    FeedbackPage* FP = new FeedbackPage(this);
-    FP->show();
-}
+    // 1. Ask for confirmation
+    QMessageBox::StandardButton reply = QMessageBox::question(this, "End Session", "Has your issue been resolved?");
 
+    if (reply == QMessageBox::Yes) {
+        // 2. Tell the server to save this specific chat to the history
+
+        if(logic != nullptr) {
+            logic->archiveTicket(myId);
+        }
+
+        // 3. Notify the Server via Network
+        QJsonObject json;
+        json["type"] = "session_end";
+        json["userId"] = myId;
+        network->sendData(QJsonDocument(json).toJson(QJsonDocument::Compact));
+
+        this->hide();
+        FeedbackPage* FP = new FeedbackPage(nullptr, this->logic, this->myId);
+        FP->show();
+}
+}

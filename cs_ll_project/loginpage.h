@@ -2,6 +2,9 @@
 #define LOGINPAGE_H
 
 #include <QDialog>
+#include "INetworkClient.h"
+#include "ServerLogic/ServerLogic.h"
+
 
 namespace Ui {
 class LoginPage;
@@ -12,7 +15,7 @@ class LoginPage : public QDialog
     Q_OBJECT
 
 public:
-    explicit LoginPage(QWidget *parent = nullptr);
+    explicit LoginPage(INetworkClient* net=nullptr, ServerLogic* log=nullptr, QWidget *parent = nullptr);
     ~LoginPage();
 
 private slots:
@@ -20,6 +23,8 @@ private slots:
 
 private:
     Ui::LoginPage *ui;
+    INetworkClient* network;
+    ServerLogic* logic;
 };
 
 #endif // LOGINPAGE_H

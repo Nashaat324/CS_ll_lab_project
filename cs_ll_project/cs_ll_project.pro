@@ -5,6 +5,7 @@ CONFIG += c++20 console
 TEMPLATE = app
 
 SOURCES += \
+    ClientNetwork.cpp \
     ServerLogic/ServerLogic.cpp \
     ServerLogicTest.cpp \
     # main_test.cpp \
@@ -14,28 +15,36 @@ SOURCES += \
     issueticket.cpp \
     FeedbackPage.cpp \
     main.cpp \
+    technician.cpp \
+    techwindow.cpp \
     test_client.cpp \
     $$PWD/third_party/googletest-main/googletest/src/gtest-all.cc \
     $$PWD/third_party/googletest-main/googlemock/src/gmock-all.cc
 
 HEADERS += \
+    ClientNetwork.h \
     ServerLogic/ServerLogic.h \
     ServerLogic/nlohmann/json.hpp \
     INetworkClient.h \
     MockNetworkClient.h \
+    SharedStructures.h \
     TcpNetworkClient.h \
     client.h \
     history.h \
     issueticket.h \
     FeedbackPage.h \
-    loginpage.h
+    loginpage.h \
+    technician.h \
+    techwindow.h
 
 FORMS += \
     client.ui \
     history.ui \
     issueticket.ui \
     FeedbackPage.ui \
-    loginpage.ui
+    loginpage.ui \
+    technician.ui \
+    techwindow.ui
 
 
 INCLUDEPATH += \

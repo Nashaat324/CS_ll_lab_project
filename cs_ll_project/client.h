@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "INetworkClient.h"
+#include "ServerLogic/ServerLogic.h"
+
 
 namespace Ui {
 class Client;
@@ -13,8 +15,7 @@ class Client : public QWidget
     Q_OBJECT
 
 public:
-    explicit Client(INetworkClient* net,
-             QWidget *parent = nullptr);
+    explicit Client(INetworkClient* net, ServerLogic *l, int id, QWidget *parent = nullptr);
     ~Client();
 
     void setTechnician(const QString& tech);
@@ -23,9 +24,6 @@ public:
 public slots:
     void on_send_clicked();
     void onReadyRead();
-
-
-
     void on_End_Chat_clicked();
 
 private:
@@ -34,6 +32,10 @@ private:
 
     QString username;
     QString technician;
+
+    ServerLogic *logic;
+    int myId;
+
 };
 
 #endif
