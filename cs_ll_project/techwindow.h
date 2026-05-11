@@ -15,7 +15,7 @@ class techWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit techWindow(QWidget *parent = nullptr);
+    explicit techWindow(INetworkClient* net,ServerLogic* log,int adminId,QWidget *parent = nullptr);
     ~techWindow();
 
 private slots:

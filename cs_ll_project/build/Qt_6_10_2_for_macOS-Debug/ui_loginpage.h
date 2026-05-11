@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -27,6 +28,7 @@ public:
     QLabel *label_username;
     QLabel *label;
     QPushButton *loginButton;
+    QComboBox *comboBox_role;
 
     void setupUi(QDialog *LoginPage)
     {
@@ -55,7 +57,12 @@ public:
         label->setFont(font);
         loginButton = new QPushButton(LoginPage);
         loginButton->setObjectName("loginButton");
-        loginButton->setGeometry(QRect(330, 400, 100, 32));
+        loginButton->setGeometry(QRect(380, 400, 100, 32));
+        comboBox_role = new QComboBox(LoginPage);
+        comboBox_role->addItem(QString());
+        comboBox_role->addItem(QString());
+        comboBox_role->setObjectName("comboBox_role");
+        comboBox_role->setGeometry(QRect(250, 400, 103, 32));
 
         retranslateUi(LoginPage);
 
@@ -69,6 +76,9 @@ public:
         label_username->setText(QCoreApplication::translate("LoginPage", "Username: ", nullptr));
         label->setText(QCoreApplication::translate("LoginPage", "Log In", nullptr));
         loginButton->setText(QCoreApplication::translate("LoginPage", "Log in", nullptr));
+        comboBox_role->setItemText(0, QCoreApplication::translate("LoginPage", "Technician", nullptr));
+        comboBox_role->setItemText(1, QCoreApplication::translate("LoginPage", "Employee", nullptr));
+
     } // retranslateUi
 
 };

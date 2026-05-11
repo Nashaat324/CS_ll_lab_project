@@ -109,3 +109,7 @@ QJsonObject ServerLogic::acceptTicket(int id) {
     return response;
 }
 
+QString ServerLogic::getChatLog(int userId)
+{
+    return activeChatLogs[userId];
+}

@@ -12,6 +12,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    a.setQuitOnLastWindowClosed(false);
+
     // 1. Create the shared components ONCE
     TcpNetworkClient* net = new TcpNetworkClient();
     ServerLogic* log = new ServerLogic();

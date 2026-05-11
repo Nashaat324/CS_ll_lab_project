@@ -28,7 +28,7 @@ public:
     QLabel *label_2;
     QFrame *frame;
     QVBoxLayout *verticalLayout;
-    QListWidget *screen;
+    QListWidget *chatDisplay;
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
@@ -55,10 +55,10 @@ public:
         frame->setFrameShadow(QFrame::Shadow::Raised);
         verticalLayout = new QVBoxLayout(frame);
         verticalLayout->setObjectName("verticalLayout");
-        screen = new QListWidget(frame);
-        screen->setObjectName("screen");
+        chatDisplay = new QListWidget(frame);
+        chatDisplay->setObjectName("chatDisplay");
 
-        verticalLayout->addWidget(screen);
+        verticalLayout->addWidget(chatDisplay);
 
         layoutWidget = new QWidget(Client);
         layoutWidget->setObjectName("layoutWidget");

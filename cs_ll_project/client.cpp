@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QDateTime>
 #include <QDebug>
+#include <QTimer>
 //#include <boost/json.hpp>
 
 Client::Client(INetworkClient* net, ServerLogic *l, int id, QWidget *parent)
@@ -16,6 +17,15 @@ Client::Client(INetworkClient* net, ServerLogic *l, int id, QWidget *parent)
     , myId(id)
 {
     ui->setupUi(this);
+
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, [=]() {
+        ui->chatDisplay->clear();
+        ui->chatDisplay->addItems(
+            logic->getChatLog(1).split("\n", Qt::SkipEmptyParts)
+            );
+    });
+    timer->start(500);
 
     network = net;
 
@@ -50,40 +60,49 @@ void Client::on_send_clicked()
 {
     QString msg = ui->type->text();
     if (msg.isEmpty()) {
-        //QMessageBox::critical(this, "Error", "Message is empty");
         return;
     }
 
-    QString timestamp = QDateTime::currentDateTime().toString(Qt::ISODate);
+    logic->processChatMessage(1, username, msg);
+    ui->chatDisplay->clear();
+    ui->chatDisplay->addItems(logic->getChatLog(1).split("\n", Qt::SkipEmptyParts));
+
 
     QJsonObject json;
     json["type"] = "chat_message";
     json["from"] = username;
     json["to"] = technician;
     json["message"] = msg;
-    json["timestamp"] = timestamp;
 
     QJsonDocument doc(json);
     QByteArray data = doc.toJson(QJsonDocument::Compact);
     network->sendData(data);
-    qDebug() << "SENT TO SERVER:" << data;
-    ui->screen->addItem("Me: " + msg + "\nTime: " + timestamp);
+
     ui->type->clear();
 }
 
 void Client::onReadyRead()
 {
     QByteArray data = network->receiveData();
+
     QJsonDocument doc = QJsonDocument::fromJson(data);
+
+    if (!doc.isObject())
+        return;
+
     QJsonObject obj = doc.object();
 
-    if (obj.contains("status")) {
+    if (obj["type"].toString() == "chat_message") {
 
-        QString status = obj["status"].toString();
-        ui->screen->addItem("System: Message " + status + "!");
-    } else {
+        QString sender = obj["from"].toString();
+        QString message = obj["message"].toString();
 
-        ui->screen->addItem("Server: " + QString(data));
+        logic->processChatMessage(1, sender, message);
+
+        ui->chatDisplay->clear();
+        ui->chatDisplay->addItems(
+            logic->getChatLog(1).split("\n", Qt::SkipEmptyParts)
+            );
     }
 
 }

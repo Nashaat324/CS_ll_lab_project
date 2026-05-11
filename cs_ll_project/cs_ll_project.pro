@@ -7,28 +7,16 @@ TEMPLATE = app
 SOURCES += \
     ClientNetwork.cpp \
     ServerLogic/ServerLogic.cpp \
-    ServerLogicTest.cpp \
-    # main_test.cpp \
     history.cpp \
     loginpage.cpp \
-<<<<<<< HEAD
     client.cpp \
     issueticket.cpp \
     FeedbackPage.cpp \
     main.cpp \
     technician.cpp \
-    techwindow.cpp \
-    test_client.cpp \
-    $$PWD/third_party/googletest-main/googletest/src/gtest-all.cc \
-    $$PWD/third_party/googletest-main/googlemock/src/gmock-all.cc
-=======
-    main.cpp \
-    client.cpp \
-    issueticket.cpp \
-    FeedbackPage.cpp \
-    #test_client.cpp \
-    #test_main.cpp
->>>>>>> Update-Login
+    techwindow.cpp
+
+
 
 HEADERS += \
     ClientNetwork.h \
@@ -60,19 +48,21 @@ INCLUDEPATH += \
     $$PWD/third_party/googletest-main/googletest/include \
     $$PWD/third_party/googletest-main/googletest \
     $$PWD/third_party/googletest-main/googlemock/include \
-    $$PWD/third_party/googletest-main/googlemock
+    $$PWD/third_party/googletest-main/googlemock\
+    $$PWD/third_party/googletest-main/googletest/src \
+        $$PWD/third_party/googletest-main/googlemock/src
+
+
+
+macx {
+    INCLUDEPATH += /opt/homebrew/include
+    LIBS += -L/opt/homebrew/lib -lpthread
+}
 
 win32 {
     LIBS += -lws2_32
 }
 
-macx {
-    INCLUDEPATH += /opt/homebrew/include
-    LIBS += -L/opt/homebrew/lib \
-            # -lgtest \
-            # -lgmock \
-            -lpthread
-}
 
 QMAKE_CFLAGS += -Wno-implicit-function-declaration
 QMAKE_CXXFLAGS += -Wno-implicit-function-declaration

@@ -21,6 +21,7 @@ public:
     void handleDisconnect(int id);
     int getQueueSize();
     QJsonObject acceptTicket(int id);
+    QString getChatLog(int userId);
     
 
     // For the History Window

@@ -17,7 +17,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -Wno-implicit-function-declaration -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk -mmacosx-version-min=13 -Wall -Wextra $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -Wno-implicit-function-declaration -g -std=gnu++2a $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk -mmacosx-version-min=13 -Wall -Wextra $(DEFINES)
-INCPATH       = -I../../../cs_ll_project -I. -I../../third_party/googletest-main/googletest/include -I../../third_party/googletest-main/googletest -I../../third_party/googletest-main/googlemock/include -I../../third_party/googletest-main/googlemock -I/opt/homebrew/include -I../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I../../../../Qt/6.10.2/macos/lib/QtGui.framework/Headers -I../../../../Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I../../../../Qt/6.10.2/macos/mkspecs/macx-clang -F/Users/Maya_1/Qt/6.10.2/macos/lib
+INCPATH       = -I../../../cs_ll_project -I. -I../../third_party/googletest-main/googletest/include -I../../third_party/googletest-main/googletest -I../../third_party/googletest-main/googlemock/include -I../../third_party/googletest-main/googlemock -I../../third_party/googletest-main/googletest/src -I../../third_party/googletest-main/googlemock/src -I/opt/homebrew/include -I../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I../../../../Qt/6.10.2/macos/lib/QtGui.framework/Headers -I../../../../Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I../../../../Qt/6.10.2/macos/mkspecs/macx-clang -F/Users/Maya_1/Qt/6.10.2/macos/lib
 QMAKE         = /Users/Maya_1/Qt/6.10.2/macos/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -54,7 +54,6 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../../ClientNetwork.cpp \
 		../../ServerLogic/ServerLogic.cpp \
-		../../ServerLogicTest.cpp \
 		../../history.cpp \
 		../../loginpage.cpp \
 		../../client.cpp \
@@ -62,10 +61,7 @@ SOURCES       = ../../ClientNetwork.cpp \
 		../../FeedbackPage.cpp \
 		../../main.cpp \
 		../../technician.cpp \
-		../../techwindow.cpp \
-		../../test_client.cpp \
-		../../third_party/googletest-main/googletest/src/gtest-all.cc \
-		../../third_party/googletest-main/googlemock/src/gmock-all.cc moc_client.cpp \
+		../../techwindow.cpp moc_client.cpp \
 		moc_history.cpp \
 		moc_issueticket.cpp \
 		moc_FeedbackPage.cpp \
@@ -74,7 +70,6 @@ SOURCES       = ../../ClientNetwork.cpp \
 		moc_techwindow.cpp
 OBJECTS       = ClientNetwork.o \
 		ServerLogic.o \
-		ServerLogicTest.o \
 		history.o \
 		loginpage.o \
 		client.o \
@@ -83,9 +78,6 @@ OBJECTS       = ClientNetwork.o \
 		main.o \
 		technician.o \
 		techwindow.o \
-		test_client.o \
-		gtest-all.o \
-		gmock-all.o \
 		moc_client.o \
 		moc_history.o \
 		moc_issueticket.o \
@@ -353,7 +345,6 @@ DIST          = /Qt/6.10.2/macos/mkspecs/features/spec_pre.prf \
 		../../technician.h \
 		../../techwindow.h ../../ClientNetwork.cpp \
 		../../ServerLogic/ServerLogic.cpp \
-		../../ServerLogicTest.cpp \
 		../../history.cpp \
 		../../loginpage.cpp \
 		../../client.cpp \
@@ -361,10 +352,7 @@ DIST          = /Qt/6.10.2/macos/mkspecs/features/spec_pre.prf \
 		../../FeedbackPage.cpp \
 		../../main.cpp \
 		../../technician.cpp \
-		../../techwindow.cpp \
-		../../test_client.cpp \
-		../../third_party/googletest-main/googletest/src/gtest-all.cc \
-		../../third_party/googletest-main/googlemock/src/gmock-all.cc
+		../../techwindow.cpp
 QMAKE_TARGET  = cs_ll_project
 DESTDIR       = 
 TARGET        = cs_ll_project.app/Contents/MacOS/cs_ll_project
@@ -915,7 +903,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ClientNetwork.h ../../ServerLogic/ServerLogic.h ../../ServerLogic/nlohmann/json.hpp ../../INetworkClient.h ../../MockNetworkClient.h ../../SharedStructures.h ../../TcpNetworkClient.h ../../client.h ../../history.h ../../issueticket.h ../../FeedbackPage.h ../../loginpage.h ../../technician.h ../../techwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../ClientNetwork.cpp ../../ServerLogic/ServerLogic.cpp ../../ServerLogicTest.cpp ../../history.cpp ../../loginpage.cpp ../../client.cpp ../../issueticket.cpp ../../FeedbackPage.cpp ../../main.cpp ../../technician.cpp ../../techwindow.cpp ../../test_client.cpp ../../third_party/googletest-main/googletest/src/gtest-all.cc ../../third_party/googletest-main/googlemock/src/gmock-all.cc $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ClientNetwork.cpp ../../ServerLogic/ServerLogic.cpp ../../history.cpp ../../loginpage.cpp ../../client.cpp ../../issueticket.cpp ../../FeedbackPage.cpp ../../main.cpp ../../technician.cpp ../../techwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../client.ui ../../history.ui ../../issueticket.ui ../../FeedbackPage.ui ../../loginpage.ui ../../technician.ui ../../techwindow.ui $(DISTDIR)/
 
 
@@ -963,7 +951,7 @@ moc_client.cpp: ../../client.h \
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../SharedStructures.h \
 		../../../../Qt/6.10.2/macos/libexec/moc
-	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../client.h -o moc_client.cpp
+	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/src -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/src -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../client.h -o moc_client.cpp
 
 moc_history.cpp: ../../history.h \
 		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QDialog \
@@ -975,7 +963,7 @@ moc_history.cpp: ../../history.h \
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../SharedStructures.h \
 		../../../../Qt/6.10.2/macos/libexec/moc
-	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../history.h -o moc_history.cpp
+	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/src -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/src -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../history.h -o moc_history.cpp
 
 moc_issueticket.cpp: ../../issueticket.h \
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/QString \
@@ -992,7 +980,7 @@ moc_issueticket.cpp: ../../issueticket.h \
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/QByteArray \
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qbytearray.h \
 		../../../../Qt/6.10.2/macos/libexec/moc
-	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../issueticket.h -o moc_issueticket.cpp
+	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/src -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/src -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../issueticket.h -o moc_issueticket.cpp
 
 moc_FeedbackPage.cpp: ../../FeedbackPage.h \
 		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QDialog \
@@ -1004,7 +992,7 @@ moc_FeedbackPage.cpp: ../../FeedbackPage.h \
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../SharedStructures.h \
 		../../../../Qt/6.10.2/macos/libexec/moc
-	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../FeedbackPage.h -o moc_FeedbackPage.cpp
+	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/src -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/src -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../FeedbackPage.h -o moc_FeedbackPage.cpp
 
 moc_loginpage.cpp: ../../loginpage.h \
 		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QDialog \
@@ -1021,7 +1009,7 @@ moc_loginpage.cpp: ../../loginpage.h \
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../SharedStructures.h \
 		../../../../Qt/6.10.2/macos/libexec/moc
-	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../loginpage.h -o moc_loginpage.cpp
+	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/src -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/src -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../loginpage.h -o moc_loginpage.cpp
 
 moc_technician.cpp: ../../technician.h \
 		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QWidget \
@@ -1038,7 +1026,7 @@ moc_technician.cpp: ../../technician.h \
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../SharedStructures.h \
 		../../../../Qt/6.10.2/macos/libexec/moc
-	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../technician.h -o moc_technician.cpp
+	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/src -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/src -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../technician.h -o moc_technician.cpp
 
 moc_techwindow.cpp: ../../techwindow.h \
 		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QWidget \
@@ -1055,7 +1043,7 @@ moc_techwindow.cpp: ../../techwindow.h \
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/QByteArray \
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qbytearray.h \
 		../../../../Qt/6.10.2/macos/libexec/moc
-	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../techwindow.h -o moc_techwindow.cpp
+	/Users/Maya_1/Qt/6.10.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=21 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/Maya_1/Qt/6.10.2/macos/mkspecs/macx-clang -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/include -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googletest/src -I/Users/Maya_1/CS_ll_lab_project/cs_ll_project/third_party/googletest-main/googlemock/src -I/opt/homebrew/include -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtWidgets.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtGui.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtNetwork.framework/Headers -I/Users/Maya_1/Qt/6.10.2/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/Maya_1/Qt/6.10.2/macos/lib ../../techwindow.h -o moc_techwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1126,35 +1114,6 @@ ServerLogic.o: ../../ServerLogic/ServerLogic.cpp ../../ServerLogic/ServerLogic.h
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ServerLogic.o ../../ServerLogic/ServerLogic.cpp
 
-ServerLogicTest.o: ../../ServerLogicTest.cpp /opt/homebrew/include/gtest/gtest.h \
-		/opt/homebrew/include/gtest/gtest-assertion-result.h \
-		/opt/homebrew/include/gtest/gtest-message.h \
-		/opt/homebrew/include/gtest/internal/gtest-port.h \
-		/opt/homebrew/include/gtest/internal/custom/gtest-port.h \
-		/opt/homebrew/include/gtest/internal/gtest-port-arch.h \
-		/opt/homebrew/include/gtest/gtest-death-test.h \
-		/opt/homebrew/include/gtest/internal/gtest-death-test-internal.h \
-		/opt/homebrew/include/gtest/gtest-matchers.h \
-		/opt/homebrew/include/gtest/gtest-printers.h \
-		/opt/homebrew/include/gtest/internal/gtest-internal.h \
-		/opt/homebrew/include/gtest/internal/gtest-filepath.h \
-		/opt/homebrew/include/gtest/internal/gtest-string.h \
-		/opt/homebrew/include/gtest/internal/gtest-type-util.h \
-		/opt/homebrew/include/gtest/internal/custom/gtest-printers.h \
-		/opt/homebrew/include/gtest/gtest-param-test.h \
-		/opt/homebrew/include/gtest/internal/gtest-param-util.h \
-		/opt/homebrew/include/gtest/gtest-test-part.h \
-		/opt/homebrew/include/gtest/gtest-typed-test.h \
-		/opt/homebrew/include/gtest/gtest_pred_impl.h \
-		/opt/homebrew/include/gtest/gtest_prod.h \
-		../../ServerLogic/ServerLogic.h \
-		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/QString \
-		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qstring.h \
-		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/QJsonObject \
-		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qjsonobject.h \
-		../../SharedStructures.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ServerLogicTest.o ../../ServerLogicTest.cpp
-
 history.o: ../../history.cpp ../../history.h \
 		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QDialog \
 		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
@@ -1167,7 +1126,9 @@ history.o: ../../history.cpp ../../history.h \
 		ui_history.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o history.o ../../history.cpp
 
-loginpage.o: ../../loginpage.cpp ../../loginpage.h \
+loginpage.o: ../../loginpage.cpp ../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../loginpage.h \
 		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QDialog \
 		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
 		../../INetworkClient.h \
@@ -1184,7 +1145,8 @@ loginpage.o: ../../loginpage.cpp ../../loginpage.h \
 		ui_loginpage.h \
 		../../issueticket.h \
 		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QWidget \
-		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/qwidget.h
+		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../techwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o loginpage.o ../../loginpage.cpp
 
 client.o: ../../client.cpp ../../client.h \
@@ -1247,7 +1209,6 @@ FeedbackPage.o: ../../FeedbackPage.cpp ../../feedbackpage.h \
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/QJsonObject \
 		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qjsonobject.h \
 		../../SharedStructures.h \
-		ui_feedbackpage.h \
 		../../history.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FeedbackPage.o ../../FeedbackPage.cpp
 
@@ -1311,143 +1272,6 @@ techwindow.o: ../../techwindow.cpp ../../techwindow.h \
 		ui_techwindow.h \
 		../../technician.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o techwindow.o ../../techwindow.cpp
-
-test_client.o: ../../test_client.cpp /opt/homebrew/include/gtest/gtest.h \
-		/opt/homebrew/include/gtest/gtest-assertion-result.h \
-		/opt/homebrew/include/gtest/gtest-message.h \
-		/opt/homebrew/include/gtest/internal/gtest-port.h \
-		/opt/homebrew/include/gtest/internal/custom/gtest-port.h \
-		/opt/homebrew/include/gtest/internal/gtest-port-arch.h \
-		/opt/homebrew/include/gtest/gtest-death-test.h \
-		/opt/homebrew/include/gtest/internal/gtest-death-test-internal.h \
-		/opt/homebrew/include/gtest/gtest-matchers.h \
-		/opt/homebrew/include/gtest/gtest-printers.h \
-		/opt/homebrew/include/gtest/internal/gtest-internal.h \
-		/opt/homebrew/include/gtest/internal/gtest-filepath.h \
-		/opt/homebrew/include/gtest/internal/gtest-string.h \
-		/opt/homebrew/include/gtest/internal/gtest-type-util.h \
-		/opt/homebrew/include/gtest/internal/custom/gtest-printers.h \
-		/opt/homebrew/include/gtest/gtest-param-test.h \
-		/opt/homebrew/include/gtest/internal/gtest-param-util.h \
-		/opt/homebrew/include/gtest/gtest-test-part.h \
-		/opt/homebrew/include/gtest/gtest-typed-test.h \
-		/opt/homebrew/include/gtest/gtest_pred_impl.h \
-		/opt/homebrew/include/gtest/gtest_prod.h \
-		/opt/homebrew/include/gmock/gmock.h \
-		/opt/homebrew/include/gmock/gmock-actions.h \
-		/opt/homebrew/include/gmock/internal/gmock-internal-utils.h \
-		/opt/homebrew/include/gmock/internal/gmock-port.h \
-		/opt/homebrew/include/gmock/internal/custom/gmock-port.h \
-		/opt/homebrew/include/gmock/internal/gmock-pp.h \
-		/opt/homebrew/include/gmock/gmock-cardinalities.h \
-		/opt/homebrew/include/gmock/gmock-function-mocker.h \
-		/opt/homebrew/include/gmock/gmock-spec-builders.h \
-		/opt/homebrew/include/gmock/gmock-matchers.h \
-		/opt/homebrew/include/gmock/internal/custom/gmock-matchers.h \
-		/opt/homebrew/include/gmock/gmock-more-actions.h \
-		/opt/homebrew/include/gmock/internal/custom/gmock-generated-actions.h \
-		/opt/homebrew/include/gmock/gmock-more-matchers.h \
-		/opt/homebrew/include/gmock/gmock-nice-strict.h \
-		../../client.h \
-		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QWidget \
-		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/qwidget.h \
-		../../INetworkClient.h \
-		../../../../Qt/6.10.2/macos/lib/QtNetwork.framework/Headers/QTcpSocket \
-		../../../../Qt/6.10.2/macos/lib/QtNetwork.framework/Headers/qtcpsocket.h \
-		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/QString \
-		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qstring.h \
-		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/QByteArray \
-		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qbytearray.h \
-		../../ServerLogic/ServerLogic.h \
-		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/QJsonObject \
-		../../../../Qt/6.10.2/macos/lib/QtCore.framework/Headers/qjsonobject.h \
-		../../SharedStructures.h \
-		../../MockNetworkClient.h \
-		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QLineEdit \
-		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/qlineedit.h \
-		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QListWidget \
-		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/qlistwidget.h \
-		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/QLabel \
-		../../../../Qt/6.10.2/macos/lib/QtWidgets.framework/Headers/qlabel.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o test_client.o ../../test_client.cpp
-
-gtest-all.o: ../../third_party/googletest-main/googletest/src/gtest-all.cc /opt/homebrew/include/gtest/gtest.h \
-		/opt/homebrew/include/gtest/gtest-assertion-result.h \
-		/opt/homebrew/include/gtest/gtest-message.h \
-		/opt/homebrew/include/gtest/internal/gtest-port.h \
-		/opt/homebrew/include/gtest/internal/custom/gtest-port.h \
-		/opt/homebrew/include/gtest/internal/gtest-port-arch.h \
-		/opt/homebrew/include/gtest/gtest-death-test.h \
-		/opt/homebrew/include/gtest/internal/gtest-death-test-internal.h \
-		/opt/homebrew/include/gtest/gtest-matchers.h \
-		/opt/homebrew/include/gtest/gtest-printers.h \
-		/opt/homebrew/include/gtest/internal/gtest-internal.h \
-		/opt/homebrew/include/gtest/internal/gtest-filepath.h \
-		/opt/homebrew/include/gtest/internal/gtest-string.h \
-		/opt/homebrew/include/gtest/internal/gtest-type-util.h \
-		/opt/homebrew/include/gtest/internal/custom/gtest-printers.h \
-		/opt/homebrew/include/gtest/gtest-param-test.h \
-		/opt/homebrew/include/gtest/internal/gtest-param-util.h \
-		/opt/homebrew/include/gtest/gtest-test-part.h \
-		/opt/homebrew/include/gtest/gtest-typed-test.h \
-		/opt/homebrew/include/gtest/gtest_pred_impl.h \
-		/opt/homebrew/include/gtest/gtest_prod.h \
-		../../third_party/googletest-main/googletest/src/gtest-assertion-result.cc \
-		../../third_party/googletest-main/googletest/src/gtest-death-test.cc \
-		/opt/homebrew/include/gtest/internal/custom/gtest.h \
-		../../third_party/googletest-main/googletest/src/gtest-internal-inl.h \
-		/opt/homebrew/include/gtest/gtest-spi.h \
-		../../third_party/googletest-main/googletest/src/gtest-filepath.cc \
-		../../third_party/googletest-main/googletest/src/gtest-matchers.cc \
-		../../third_party/googletest-main/googletest/src/gtest-port.cc \
-		../../third_party/googletest-main/googletest/src/gtest-printers.cc \
-		../../third_party/googletest-main/googletest/src/gtest-test-part.cc \
-		../../third_party/googletest-main/googletest/src/gtest-typed-test.cc \
-		../../third_party/googletest-main/googletest/src/gtest.cc
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gtest-all.o ../../third_party/googletest-main/googletest/src/gtest-all.cc
-
-gmock-all.o: ../../third_party/googletest-main/googlemock/src/gmock-all.cc /opt/homebrew/include/gmock/gmock.h \
-		/opt/homebrew/include/gmock/gmock-actions.h \
-		/opt/homebrew/include/gmock/internal/gmock-internal-utils.h \
-		/opt/homebrew/include/gmock/internal/gmock-port.h \
-		/opt/homebrew/include/gmock/internal/custom/gmock-port.h \
-		/opt/homebrew/include/gtest/internal/gtest-port.h \
-		/opt/homebrew/include/gtest/internal/custom/gtest-port.h \
-		/opt/homebrew/include/gtest/internal/gtest-port-arch.h \
-		/opt/homebrew/include/gtest/gtest.h \
-		/opt/homebrew/include/gtest/gtest-assertion-result.h \
-		/opt/homebrew/include/gtest/gtest-message.h \
-		/opt/homebrew/include/gtest/gtest-death-test.h \
-		/opt/homebrew/include/gtest/internal/gtest-death-test-internal.h \
-		/opt/homebrew/include/gtest/gtest-matchers.h \
-		/opt/homebrew/include/gtest/gtest-printers.h \
-		/opt/homebrew/include/gtest/internal/gtest-internal.h \
-		/opt/homebrew/include/gtest/internal/gtest-filepath.h \
-		/opt/homebrew/include/gtest/internal/gtest-string.h \
-		/opt/homebrew/include/gtest/internal/gtest-type-util.h \
-		/opt/homebrew/include/gtest/internal/custom/gtest-printers.h \
-		/opt/homebrew/include/gtest/gtest-param-test.h \
-		/opt/homebrew/include/gtest/internal/gtest-param-util.h \
-		/opt/homebrew/include/gtest/gtest-test-part.h \
-		/opt/homebrew/include/gtest/gtest-typed-test.h \
-		/opt/homebrew/include/gtest/gtest_pred_impl.h \
-		/opt/homebrew/include/gtest/gtest_prod.h \
-		/opt/homebrew/include/gmock/internal/gmock-pp.h \
-		/opt/homebrew/include/gmock/gmock-cardinalities.h \
-		/opt/homebrew/include/gmock/gmock-function-mocker.h \
-		/opt/homebrew/include/gmock/gmock-spec-builders.h \
-		/opt/homebrew/include/gmock/gmock-matchers.h \
-		/opt/homebrew/include/gmock/internal/custom/gmock-matchers.h \
-		/opt/homebrew/include/gmock/gmock-more-actions.h \
-		/opt/homebrew/include/gmock/internal/custom/gmock-generated-actions.h \
-		/opt/homebrew/include/gmock/gmock-more-matchers.h \
-		/opt/homebrew/include/gmock/gmock-nice-strict.h \
-		../../third_party/googletest-main/googlemock/src/gmock-cardinalities.cc \
-		../../third_party/googletest-main/googlemock/src/gmock-internal-utils.cc \
-		../../third_party/googletest-main/googlemock/src/gmock-matchers.cc \
-		../../third_party/googletest-main/googlemock/src/gmock-spec-builders.cc \
-		../../third_party/googletest-main/googlemock/src/gmock.cc
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o gmock-all.o ../../third_party/googletest-main/googlemock/src/gmock-all.cc
 
 moc_client.o: moc_client.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_client.o moc_client.cpp

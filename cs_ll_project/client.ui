@@ -49,7 +49,7 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QListWidget" name="screen"/>
+     <widget class="QListWidget" name="chatDisplay"/>
     </item>
    </layout>
   </widget>

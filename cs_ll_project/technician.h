@@ -16,6 +16,7 @@ class technician : public QWidget
 public:
     explicit technician(INetworkClient* net, ServerLogic *l, int adminId, QWidget *parent = nullptr);
     ~technician();
+    void setClientName(const QString &name);
 
 private slots:
     void on_pushButton_send_clicked();
@@ -29,6 +30,8 @@ private:
     INetworkClient *network;
     ServerLogic *logic; // This stores the connection to the server
     int myAdminId;      // This stores who is logged in
+    QString clientName = "Client";
+    void refreshChat();
 };
 
 #endif // TECHNICIAN_H

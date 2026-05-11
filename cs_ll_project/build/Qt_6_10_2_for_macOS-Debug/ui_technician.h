@@ -27,6 +27,7 @@ public:
     QLineEdit *lineEdit_message;
     QPushButton *pushButton_send;
     QPushButton *pushButton_2_endChat;
+    QLabel *label_2;
 
     void setupUi(QWidget *technician)
     {
@@ -51,6 +52,9 @@ public:
         pushButton_2_endChat = new QPushButton(technician);
         pushButton_2_endChat->setObjectName("pushButton_2_endChat");
         pushButton_2_endChat->setGeometry(QRect(450, 510, 100, 32));
+        label_2 = new QLabel(technician);
+        label_2->setObjectName("label_2");
+        label_2->setGeometry(QRect(237, 70, 521, 20));
 
         retranslateUi(technician);
 
@@ -63,6 +67,7 @@ public:
         message->setText(QCoreApplication::translate("technician", "Message:", nullptr));
         pushButton_send->setText(QCoreApplication::translate("technician", "Send", nullptr));
         pushButton_2_endChat->setText(QCoreApplication::translate("technician", "End Chat", nullptr));
+        label_2->setText(QString());
     } // retranslateUi
 
 };

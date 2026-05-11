@@ -4,10 +4,12 @@
 #include "issueticket.h"
 #include "techwindow.h"
 
+
 LoginPage::LoginPage(INetworkClient* net, ServerLogic* log, QWidget *parent)
     : QDialog(parent)
-    ,network(net)
+
     , ui(new Ui::LoginPage)
+    ,network(net)
     ,logic(log)
 
 {
@@ -28,14 +30,11 @@ LoginPage::~LoginPage()
 void LoginPage::on_loginButton_clicked()
 {
     QString username = ui->usernameLineEdit->text();
-<<<<<<< HEAD
-    int id = 1;
-    hide();
-    IssueTicket *it = new IssueTicket(this->network, this->logic, id);
-    it->show();
-=======
     QString password = ui->passwordLineEdit->text();
-    QString role = ui->roleComboBox->currentText();
+    QString role = ui->comboBox_role->currentText();
+    int id = 1;
+
+
 
     if(username.isEmpty() || password.isEmpty())
     {
@@ -45,17 +44,18 @@ void LoginPage::on_loginButton_clicked()
 
     if(role == "Employee")
     {
-        IssueTicket *ticketWindow = new IssueTicket();
-        ticketWindow->show();
+        IssueTicket *it = new IssueTicket(this->network, this->logic, id);
+        it->show();
+        this->hide();
     }
     else if(role == "Technician")
     {
-        TechWindow *techWindow = new TechWindow();
-        techWindow->show();
+        techWindow *tw = new techWindow(network, logic, id, nullptr);
+        tw->show();
+        this->hide();
+
     }
 
->>>>>>> Update-Login
-    this->hide();
 }
 
 
