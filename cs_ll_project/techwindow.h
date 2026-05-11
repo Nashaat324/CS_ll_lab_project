@@ -15,7 +15,7 @@ class techWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit techWindow(INetworkClient* net,ServerLogic* log,int adminId,QWidget *parent = nullptr);
+    explicit techWindow(INetworkClient* net,ServerLogic* log,int adminId, QString adminName, QWidget *parent = nullptr);
     ~techWindow();
 
 private slots:
@@ -26,6 +26,8 @@ private:
     ServerLogic *logic; // Add a pointer to your logic class
     int myAdminId;      // Store the logged-in tech's ID
     INetworkClient* network;
+    QString myAdminName;
+
 };
 
 #endif // TECHWINDOW_H

@@ -30,6 +30,7 @@ public:
 private:
     std::map<int, QString> activeChatLogs; // userId -> combined strings
     std::vector<ArchivedTicket> historyDatabase;
+    std::map<int, QString> ticketOwners;
 };
 
 #endif

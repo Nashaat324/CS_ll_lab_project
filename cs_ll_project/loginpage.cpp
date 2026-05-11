@@ -45,12 +45,14 @@ void LoginPage::on_loginButton_clicked()
     if(role == "Employee")
     {
         IssueTicket *it = new IssueTicket(this->network, this->logic, id);
+        it->setUsername(username);
         it->show();
         this->hide();
     }
     else if(role == "Technician")
     {
-        techWindow *tw = new techWindow(network, logic, id, nullptr);
+        QString nameFromBox = ui->usernameLineEdit->text();
+        techWindow *tw = new techWindow(this->network, this->logic, id, nameFromBox);
         tw->show();
         this->hide();
 

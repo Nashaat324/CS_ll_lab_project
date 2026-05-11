@@ -48,9 +48,14 @@ std::string ServerLogic::handleRequest(int id, const std::string& input){
         QString type = obj["type"].toString();
 
         // 2. Route the request based on the "type" field
-        if (type == "login") {
-            QString username = obj["user"].toString();
-            if (username.isEmpty()) {
+        if (type == "login" || type == "new_ticket") {
+            QString senderName = obj["user"].toString();
+
+            // SAVE IT HERE: Link the connection ID to the name
+            ticketOwners[id] = senderName;
+
+            qDebug() << "ServerLogic saved owner for ID" << id << "as" << senderName;
+            if (senderName.isEmpty()) {
                         return "ERROR: Username cannot be empty"; // This makes the test PASS
                     }
         
@@ -92,20 +97,25 @@ int ServerLogic::getQueueSize() {
 QJsonObject ServerLogic::acceptTicket(int id) {
     
     QJsonObject response;
-    
-    //  Check if this ticket already has a log. If not, create one.
-    // This ensures that the chat starts with a clean slate.
+
+    // 1. Look up the name in our new map
+    QString employeeName = "";
+    if (ticketOwners.count(id)) {
+        employeeName = ticketOwners[id];
+    } else {
+        employeeName = "Unknown User"; // Fallback
+    }
+
     if (activeChatLogs.find(id) == activeChatLogs.end()) {
-        activeChatLogs[id] = QString("--- Session Started at %1 ---\n")
-            .arg(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss"));
+        activeChatLogs[id] = QString("--- Session Started ---\n");
         response["status"] = "success";
         response["message"] = "Ticket accepted";
-    }
-    else{
-        // If it already exists, we still succeed but acknowledge it
+        response["user"] = employeeName; // <--- THE TECHNICIAN NOW GETS THE NAME!
+    } else {
         response["status"] = "success";
+        response["user"] = employeeName;
     }
-    qDebug() << "Technician accepted ticket:" << id;
+
     return response;
 }
 

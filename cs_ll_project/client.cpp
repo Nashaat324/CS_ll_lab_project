@@ -22,22 +22,30 @@ Client::Client(INetworkClient* net, ServerLogic *l, int id, QWidget *parent)
     connect(timer, &QTimer::timeout, this, [=]() {
         ui->chatDisplay->clear();
         ui->chatDisplay->addItems(
-            logic->getChatLog(1).split("\n", Qt::SkipEmptyParts)
+            logic->getChatLog(myId).split("\n", Qt::SkipEmptyParts)
             );
     });
     timer->start(500);
 
     network = net;
 
-    if (network->getSocket()) {
-        connect(network->getSocket(), &QTcpSocket::readyRead,
-                this, &Client::onReadyRead);
+    if (network && network->getSocket()) {
+        connect(network->getSocket(), &QTcpSocket::readyRead, this, &Client::onReadyRead);
     }
 
     network->connectToServer(
         "127.0.0.1",
         54321
         );
+
+    QTimer::singleShot(200, this, [=]() {
+        QJsonObject loginJson;
+        loginJson["type"] = "login";
+        loginJson["user"] = this->username; // This uses the name you set in Login
+
+        network->sendData(QJsonDocument(loginJson).toJson(QJsonDocument::Compact));
+        qDebug() << "Employee Login sent for:" << username;
+    });
 }
 
 Client::~Client()
@@ -63,6 +71,8 @@ void Client::on_send_clicked()
         return;
     }
 
+    qDebug() << "DEBUG: Current username in Client is:" << username;
+
     logic->processChatMessage(1, username, msg);
     ui->chatDisplay->clear();
     ui->chatDisplay->addItems(logic->getChatLog(1).split("\n", Qt::SkipEmptyParts));
@@ -83,8 +93,9 @@ void Client::on_send_clicked()
 
 void Client::onReadyRead()
 {
+    qDebug() << "Employee window just received data from server!";
     QByteArray data = network->receiveData();
-
+    qDebug() << "Raw data received by Employee:" << data;
     QJsonDocument doc = QJsonDocument::fromJson(data);
 
     if (!doc.isObject())
@@ -93,15 +104,16 @@ void Client::onReadyRead()
     QJsonObject obj = doc.object();
 
     if (obj["type"].toString() == "chat_message") {
+        qDebug() << "SUCCESS: Employee identified a chat message!";
 
         QString sender = obj["from"].toString();
         QString message = obj["message"].toString();
 
-        logic->processChatMessage(1, sender, message);
+        logic->processChatMessage(myId, sender, message);
 
         ui->chatDisplay->clear();
         ui->chatDisplay->addItems(
-            logic->getChatLog(1).split("\n", Qt::SkipEmptyParts)
+            logic->getChatLog(myId).split("\n", Qt::SkipEmptyParts)
             );
     }
 
