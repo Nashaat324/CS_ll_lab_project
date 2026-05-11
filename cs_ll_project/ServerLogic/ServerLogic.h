@@ -1,50 +1,34 @@
 #ifndef SERVERLOGIC_H
 #define SERVERLOGIC_H
 
+#include <QString>
 #include <vector>
-#include <string>
 #include <map>
-#include "nlohmann/json.hpp"
-
-using json = nlohmann::json;
+#include <string>
+#include <QJsonObject>
+#include "SharedStructures.h"
 
 class ServerLogic {
 public:
-public:
     ServerLogic() = default;
 
-    std::string handleRequest(
-        int clientId,
-        const std::string& rawMessage
-        );
+    bool validateJson(const QString& rawJson);
+    void processChatMessage(int userId, const QString& sender, const QString& message);
+    void archiveTicket(int userId);
+    
+    std::string handleRequest(int id,const std::string& input);
+    bool isLoggedIn();
+    void handleDisconnect(int id);
+    int getQueueSize();
+    QJsonObject acceptTicket(int id);
+    
 
-    void handleDisconnect(int clientId);
-
-    bool isLoggedIn(int clientId) const;
-
-    int getQueueSize() const;
+    // For the History Window
+    std::vector<ArchivedTicket> getUserHistory(int userId);
 
 private:
-
-    struct Ticket {
-        int clientId;
-        std::string category;
-        std::string specificIssue;
-        std::string description;
-        std::string preferredTech;
-    };
-
-    std::map<int, std::string> clients;
-    std::vector<int> Queue;
-    std::map<int, int> activeChats;
-
-    std::vector<Ticket> pendingTickets;
-
-    json doLogin(int clientId, const json& data);
-    json doChat(int clientId, const json& data);
-    json doSubmitTicket(int clientId, const json& data);
-    json getNextTicket(int adminId);
-
+    std::map<int, QString> activeChatLogs; // userId -> combined strings
+    std::vector<ArchivedTicket> historyDatabase;
 };
 
 #endif
