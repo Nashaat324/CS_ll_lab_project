@@ -6,12 +6,12 @@ CONFIG += c++20
 SOURCES += \
     history.cpp \
     loginpage.cpp \
-    #main.cpp \
+    main.cpp \
     client.cpp \
     issueticket.cpp \
     FeedbackPage.cpp \
-    test_client.cpp \
-    test_main.cpp
+    #test_client.cpp \
+    #test_main.cpp
 
 HEADERS += \
     INetworkClient.h \
